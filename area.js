@@ -4,10 +4,8 @@ module['exports'] = function myService(hook) {
           MongoClient = require('mongodb').MongoClient;
 
     MongoClient.connect(hook.env.mongoUrl_DO, function (err, database) {
-
-        var pathPrfx = hook.req.getPath().substring(0, 22),
-            token = hook.req.header('authorization');
         // Verify the JWT token in header
+        var token = hook.req.header('authorization');
         if (!token) {
             ///TODO: Need to log this to database warn/error log
             return hook.res.end('Invalid token: Token is null');
