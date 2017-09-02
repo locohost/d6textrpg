@@ -1,0 +1,19 @@
+{
+  "name": "d6textrpg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/locohost/d6textrpg.git"
+  },
+  "author": "Mark Deibert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/locohost/d6textrpg/issues"
+  },
+  "homepage": "https://github.com/locohost/d6textrpg#readme"
+}
