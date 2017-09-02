@@ -6,7 +6,8 @@ module['exports'] = function getAreas(hook) {
     MongoClient.connect(hook.env.mongoUrl_DO, function (err, database) {
         // Verify the JWT token in header
         var token = hook.req.headers.authorization;
-        console.log('hook.req.params', hook.req.params)
+        var collName = hook.req.params.hook;
+        //console.log('hook.req.params', hook.req.params)
         if (!token) {
             ///TODO: Need to log this to database warn/error log
             return hook.res.end('Invalid token: Token is null');
@@ -17,7 +18,7 @@ module['exports'] = function getAreas(hook) {
             if (validToken) {
                 // We have a valid token, process request...
                 const db = database.db('game');
-                db.collection('area').find({ 'del': false }).toArray(function (err, docs) {
+                db.collection(collName).find({ 'del': false }).toArray(function (err, docs) {
                     if (err) {
                         ///TODO: LOG THIS in database!...
                         hook.res.statusCode = 404;
