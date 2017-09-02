@@ -13,7 +13,8 @@ module['exports'] = function getAreas(hook) {
         } else {
             // Strip off "Bearer[space]..." token prefix
             token = token.split(" ")[1];
-            if (jwToken.VerifyToken(token)) {
+            const validToken = jwt.verify(token, hook.env.jwtSecret, { "issuer": hook.env.jwtIssuer });
+            if (validToken) {
                 // We have a valid token, process request...
                 const db = database.db('game');
                 db.collection('area').find({ 'del': false }).toArray(function (err, docs) {
