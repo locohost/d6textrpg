@@ -1,11 +1,11 @@
-//var hook = require('./');
+var hook = require('./');
 
 module['exports'] = function handleHookSource(req, res) {
 
     const jwt = require('jsonwebtoken'), 
           MongoClient = require('mongodb').MongoClient;
 
-    MongoClient.connect(req.hook.env.mongoUrl_DO, function (err, database) {
+    MongoClient.connect(hook.env.mongoUrl_DO, function (err, database) {
         // Verify the JWT token in header
         var token = req.getHeader('authorization');
         if (!token) {
