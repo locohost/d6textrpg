@@ -1,4 +1,4 @@
-var hook = require('../../resources/hook');
+//var hook = require('./');
 
 module['exports'] = function handleHookSource(req, res) {
 
