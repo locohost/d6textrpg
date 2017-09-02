@@ -9,7 +9,7 @@ module['exports'] = function myService(hook) {
         console.log("Connected to MongoDb: 'game' database!");
         console.log("Getting Areas...");
 
-        db.collection('area').find({ 'del': false }, function (err, docs) {
+        db.collection('area').find({ 'del': false }).toArray(function (err, docs) {
             if (err) {
                 ///TODO: LOG THIS in database!...
                 hook.res.statusCode = 404;
