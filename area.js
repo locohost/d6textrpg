@@ -1,15 +1,15 @@
 
-module['exports'] = function handleHookSource(req, res) {
+module['exports'] = function getAreas(hook) {
 
     const jwt = require('jsonwebtoken'), 
           MongoClient = require('mongodb').MongoClient;
 
-    MongoClient.connect(req.env.mongoUrl_DO, function (err, database) {
+    MongoClient.connect(hook.env.mongoUrl_DO, function (err, database) {
         // Verify the JWT token in header
-        var token = req.headers['Authorization'];
+        var token = hook.req.headers['Authorization'];
         if (!token) {
             ///TODO: Need to log this to database warn/error log
-            return res.end('Invalid token: Token is null');
+            return hook.res.end('Invalid token: Token is null');
         } else {
             // Strip off "Bearer[space]..." token prefix
             token = token.split(" ")[1];
@@ -19,15 +19,15 @@ module['exports'] = function handleHookSource(req, res) {
                 db.collection('area').find({ 'del': false }).toArray(function (err, docs) {
                     if (err) {
                         ///TODO: LOG THIS in database!...
-                        res.statusCode = 404;
-                        return res.end('Error! ' + (err ? ': ' + err : ''));
+                        hook.res.statusCode = 404;
+                        return hook.res.end('Error! ' + (err ? ': ' + err : ''));
                     }
-                    res.statusCode = 201;
-                    return res.end(docs);
+                    hook.res.statusCode = 201;
+                    return hook.res.end(docs);
                 });
             } else {
                 ///TODO: Need to log this to database warn/error log
-                return res.end('Invalid token');
+                return hook.res.end('Invalid token');
             }
         }
 
