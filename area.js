@@ -1,4 +1,3 @@
-
 module['exports'] = function getAreas(hook) {
 
     const jwt = require('jsonwebtoken'), 
@@ -7,15 +6,14 @@ module['exports'] = function getAreas(hook) {
     MongoClient.connect(hook.env.mongoUrl_DO, function (err, database) {
         // Verify the JWT token in header
         var token = hook.req.headers.authorization;
-        console.log('token', token);
-        console.log('hook.req.headers', hook.req.headers);
+        console.log('hook.req.params', hook.req.params)
         if (!token) {
             ///TODO: Need to log this to database warn/error log
             return hook.res.end('Invalid token: Token is null');
         } else {
             // Strip off "Bearer[space]..." token prefix
             token = token.split(" ")[1];
-            const validToken = jwt.verify(token, hook.env.jwtSecret, { "issuer": hook.env.jwtIssuer });
+            const validToken = jwt.verify(token, hook.env.jwtSecret, {"issuer": hook.env.jwtIssuer});
             if (validToken) {
                 // We have a valid token, process request...
                 const db = database.db('game');
