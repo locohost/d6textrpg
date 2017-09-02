@@ -1,4 +1,4 @@
-module['exports'] = function getArea(hook) {
+module['exports'] = function getAnyCollection(hook) {
 
     const jwt = require('jsonwebtoken'), 
           MongoClient = require('mongodb').MongoClient;
@@ -16,7 +16,7 @@ module['exports'] = function getArea(hook) {
             if (validToken) {
                 // We have a valid token, process request...
                 const db = database.db('game');
-                db.collection('area').find({ 'del': false }).toArray(function (err, docs) {
+                db.collection(hook.req.params.hook).find({ 'del': false }).toArray(function (err, docs) {
                     if (err) {
                         ///TODO: LOG THIS in database!...
                         hook.res.statusCode = 404;
