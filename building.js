@@ -5,7 +5,8 @@ module['exports'] = function myService(hook) {
 
     MongoClient.connect(hook.env.mongoUrl_DO, function (err, database) {
         const db = database.db('game');
-        db.collection('region').find({ 'del': false }).toArray(function (err, docs) {
+
+        db.collection('building').find({ 'del': false }).toArray(function (err, docs) {
             if (err) {
                 ///TODO: LOG THIS in database!...
                 hook.res.statusCode = 404;
