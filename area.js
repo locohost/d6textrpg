@@ -7,6 +7,8 @@ module['exports'] = function getAreas(hook) {
     MongoClient.connect(hook.env.mongoUrl_DO, function (err, database) {
         // Verify the JWT token in header
         var token = hook.req.headers.authorization;
+        console.log('token', token);
+        console.log('hook.req.headers', hook.req.headers);
         if (!token) {
             ///TODO: Need to log this to database warn/error log
             return hook.res.end('Invalid token: Token is null');
